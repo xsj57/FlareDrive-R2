@@ -40,11 +40,44 @@ export default {
   name: "Footer",
   data() {
     return {
-      homeUrl: "https://file.xsj57.cn/",
-      blogUrl: "https://www.xsj57.cn/",
+      homeUrl: "https://file.xsj57.us.kg/",
+      blogUrl: "https://www.xsj57.us.kg/",
       githubUrl: "https://github.com/xsj57",
-      emailUrl: "mailto:mail@xsj57.cn"
+      emailUrl: "mailto:mail@xsj57.us.kg"
     };
+  },
+  mounted() {
+    this.updateVisitorCount();
+  },
+  methods: {
+    async updateVisitorCount() {
+      try {
+        const response = await fetch('https://events.vercount.one/api/v2/log', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            url: window.location.href
+          })
+        });
+        if (response.ok) {
+          const result = await response.json();
+          if (result.status === 'success' && result.data) {
+            const site_pv_span = document.getElementById('vercount_value_site_pv');
+            const site_uv_span = document.getElementById('vercount_value_site_uv');
+            if (site_pv_span) {
+              site_pv_span.textContent = result.data.site_pv;
+            }
+            if (site_uv_span) {
+              site_uv_span.textContent = result.data.site_uv;
+            }
+          }
+        }
+      } catch (error) {
+        console.warn('Failed to fetch visitor count:', error);
+      }
+    }
   }
 };
 </script>
