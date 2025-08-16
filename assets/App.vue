@@ -596,8 +596,8 @@ export default {
           window.history.pushState(null, "", url.toString());
         }
         document.title = this.cwd.replace(/.*\/(?!$)|\//g, "") === "/" 
-            ? "FlareDrive-R2 - 优雅的 Cloudflare R2 File Storage"
-            :`${this.cwd.replace(/.*\/(?!$)|\//g, "") || "/" } - 优雅的 Cloudflare R2 File Storage`;
+            ? "FlareDrive-R2 - Cloudflare R2 File Storage"
+            :`${this.cwd.replace(/.*\/(?!$)|\//g, "") || "/" } - xsj57`;
       },
       immediate: true,
     },
